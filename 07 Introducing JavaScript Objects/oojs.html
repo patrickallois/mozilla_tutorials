@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript example</title>
+  </head>
+
+  <body>
+    <p>This example requires you to enter commands in your browser's JavaScript console (see <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">What are browser developer tools</a> for more information).</p>
+
+  </body>
+
+    <script>
+      const person = {
+        name: {
+          first: 'Bob',
+          last: 'Smith'
+        },
+        age: 32,
+        gender: 'male',
+        interests: ['music', 'skiing'],
+        bio: function() {
+          alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+        },
+        greeting: function() {
+          alert('Hi! I\'m ' + this.name[0] + '.');
+        }
+      };
+      let myDataName = 'height';
+      let myDataValue = '1.75m';
+      person[myDataName] = myDataValue;
+
+      function Person(first, last, age, gender, interests) {
+        this.name = {
+          first : first,
+          last : last
+        };
+        this.age = age;
+        this.gender = gender;
+        this.interests = interests;
+        this.bio = function() {
+          //setup pronoun for the bio's gender variation
+          var pronoun;
+          if (gender === 'male') {
+            pronoun = 'He';
+          } else {
+            pronoun = 'She';
+          }
+
+          //accumulate interests String
+          interestsString = '';
+          //no interests
+          if (interests.length === 0) {
+            interestsString = 'to do nothing';
+          //one interest
+          } else if (interests.length === 1) {
+            interestsString = interests[0];
+          //multiple interests
+          } else {
+            interestsString = interests[0];
+            for (var i = 1; i < interests.length; i++) {
+              if (i < interests.length - 1) {
+                interestsString += ', ' + interests[i];
+              } else {
+                interestsString += ' and ' + interests[i];
+              }
+            }
+          }
+          //accumulate final bio string
+          alert(this.name.first + ' ' +
+                this.name.last + ' is ' +
+                this.age + ' years old. ' +
+                pronoun + ' likes ' +
+                interestsString + '.');
+        }
+        this.greeting = function() {
+          alert('Hi! I\'m ' + this.name.first + '.');
+        };
+      }
+
+      const person1 = new Person('Bob', 'Smith', 32, 'male', ['music', 'skiing']);
+      const person2 = new Person('Sarah', 'Smith', 33, 'female', ['go kart racing', 'reading']);
+      const person3 = new Person('Colby', 'Smith', 28, 'male', ['making jewelry', 'tacos', 'beer']);
+      const person4 = new Person('Westley', 'Baby', 28, 'male', ['sleeping']);
+      const person5 = new Person('Charlie', 'Will', 28, 'male', []);
+
+    </script>
+</html>
