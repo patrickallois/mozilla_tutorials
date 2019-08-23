@@ -8,14 +8,14 @@
     <script>
       async function myFetch() {
         let response = await fetch('coffee.jpg');
-        let myBlob = await response.blob();
-
-        let objectURL = URL.createObjectURL(myBlob);
-        let image = document.createElement('img');
-        image.src = objectURL;
-        document.body.appendChild(image);
+        return await response.blob();
       }
-    myFetch();
+    myFetch().then((blob) => {
+      let objectURL = URL.createObjectURL(myBlob);
+      let image = document.createElement('img');
+      image.src = objectURL;
+      document.body.appendChild(image);
+    });
     </script>
   </body>
 </html>
