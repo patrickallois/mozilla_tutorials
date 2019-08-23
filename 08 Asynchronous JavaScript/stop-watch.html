@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple setInterval clock</title>
+    <style>
+      p {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="clock">00:00:00</p>
+    <button class="start">start</button>
+    <button class="stop">stop</button>
+    <button class="reset">reset</button>
+    <script>
+
+      const hrs_count = 3600;
+      const min_count = 60;
+
+      const startBtn = document.querySelector('.start');
+      const stopBtn = document.querySelector('.stop');
+      const resetBtn = document.querySelector('.reset');
+
+      startBtn.addEventListener('click', startTime);
+      stopBtn.addEventListener('click', stopTime);
+      resetBtn.addEventListener('click', resetTime);
+
+      let count = 0;
+      let interval = 0;
+      let stopWatch;
+
+      // When the start button is pressed the displayTime function runs at the setInterval length
+      // and the start button event listener is removed
+      function startTime() {
+        var clickTime = Date.now();
+        var offset = Date.now() - clickTime
+        //removes the delay from the time the user clicked the start button
+        setTimeout(function() {
+          displayTime();
+          stopWatch = setInterval(displayTime, 1000);
+        }, 1000 - offset);
+        startBtn.removeEventListener('click', startTime);
+      }
+      // When the stop button is pressed the interval is cleared
+      // and the start button event listener is added
+      function stopTime() {
+        clearInterval(stopWatch);
+        startBtn.addEventListener('click', startTime);
+      }
+      // When the reset button is pressed the count is reset to 0 and the display is updated
+      function resetTime() {
+        count = 0;
+        displayTime();
+      }
+      // calculates and displays the stopWatch time based on the current count
+      function displayTime() {
+        let time = '';
+        //calculate hours,mins,seconds from current count
+        let hrs = Math.trunc(count / hrs_count);
+        let min = Math.trunc((count % hrs_count) / min_count);
+        let sec = Math.trunc((count % hrs_count) % min_count);
+        //create time string hours
+        if (hrs < 10) {
+          time += '0' + hrs;
+        } else {
+          time += hrs;
+        }
+        //create time string minutes
+        if (min < 10) {
+          time += ':0' + min;
+        } else {
+          time += ':' + min;
+        }
+        //create time string seconds
+        if (sec < 10) {
+          time += ':0' + sec;
+        } else {
+          time += ':' + sec;
+        }
+        //update the stopWatch display
+        document.querySelector('.clock').textContent = time;
+        count++;
+      }
+    </script>
+  </body>
+</html>
