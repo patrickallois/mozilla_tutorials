@@ -74,18 +74,16 @@
         verse = verse.replace(" ", "");
         verse = verse.toLowerCase();
         var url = verse + ".txt";
-        //create a new request
-        var request = new XMLHttpRequest();
-        //open the request and set the return type to text
-        request.open('GET', url);
-        request.requestType = 'text';
-        //use onload to wait for the data to return before using it
-        request.onload = function() {
-          poemDisplay.textContent = request.response;
-        };
-        request.send();
+        //request the url and wait for a response
+        fetch(url).then(function(response) {
+          //get the text from the response promise
+          response.text().then(function(text) {
+            //update the display with the text response
+            poemDisplay.textContent = text;
+          });
+        });
       };
-      
+
       //set the default verse
       updateDisplay('Verse 1');
       verseChoose.value = 'Verse 1';
