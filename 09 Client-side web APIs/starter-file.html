@@ -6,7 +6,7 @@
     <style>
       #map {
         width: 800px;
-        height: 200px;
+        height: 600px;
       }
     </style>
     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
@@ -20,11 +20,25 @@
 
         // 'map' refers to a <div> element with the ID map
         let map = L.mapquest.map('map', {
-          center: [40.7128, -74.0059],
+          center: [34.228210, -77.944250],
           layers: L.mapquest.tileLayer('map'),
           zoom: 14,
           zoomControl: false
         });
+
+        L.marker([34.228210, -77.944250], {
+            icon: L.mapquest.icons.marker({
+                primaryColor: '#22407F',
+                secondaryColor: '#3B5998',
+                shadow: true,
+                size: 'md',
+                symbol: 'A'
+            })
+        })
+        .bindPopup('✨This is Alice✨')
+        .addTo(map);
+
+        map.addControl(L.mapquest.control({ position: 'bottomright'} ));
 
         let directionsControl = L.mapquest.directionsControl({
           className: '',
